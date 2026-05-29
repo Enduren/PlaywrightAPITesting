@@ -9,19 +9,4 @@ test('simple get request', async ({ request }) => {
   expect(responseObject.tags).toHaveLength(10)
 });
 
-// test('simple POST request', async ({ request }) => {
-//   const response=   await request.post('https://conduit-api.bondaracademy.com/api/articles',{
-//     headers:{
-//       Authorization:''
-//     },
-//     data:{
-
-//     }
-
-//   })
-//   const responseObject= await response.json()
-//   console.log(responseObject);
-//   expect(responseObject.tags[0]).toEqual('Test')
-//   expect(responseObject.tags).toHaveLength(10)
-// });
 
