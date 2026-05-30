@@ -6,7 +6,10 @@ let reqContext: APIRequestContext;
 test.beforeAll(async () => {
     // 2. make url comon for all the tests
     reqContext = await request.newContext({
-        baseURL: 'https://restful-booker.herokuapp.com'
+        baseURL: 'https://restful-booker.herokuapp.com',
+        extraHTTPHeaders: {
+            'Accept': 'application/json',
+        },
     });
 });
 
@@ -18,7 +21,13 @@ test.afterAll(async () => {
 // Test 1: Uses Playwright's built-in global 'request' fixture
 //! if it different http method use this
 test('get request part 2', async ({ request }) => {
-    const response = await request.get('https://restful-booker.herokuapp.com/booking');
+    const response = await request.get('https://restful-booker.herokuapp.com/booking',
+        {
+            headers:{
+            'Accept': 'application/json',
+            },
+        }
+    );
     console.log(await response.json());
     expect(response.ok()).toBeTruthy();
 });
@@ -27,7 +36,10 @@ test('get request part 2', async ({ request }) => {
 //! if you want to make the baseurl common for all the calls use this
 test('use newContext get request', async () => {
     const registrationContext = await request.newContext({
-        baseURL: 'https://restful-booker.herokuapp.com'
+        baseURL: 'https://restful-booker.herokuapp.com',
+        extraHTTPHeaders: {
+            'Accept': 'application/json',
+        },
     });
     const response = await registrationContext.get('/booking');
     console.log(await response.json());
@@ -52,4 +64,38 @@ test('Uses the baseURL from the config file', async ({ request }) => {
     const response = await request.get('/booking');
     console.log(await response.json());
     expect(response.ok()).toBeTruthy();
+});
+
+test('Uses the baseURL from the config file for id', async ({ request }) => {
+    const response = await request.get('/booking/1');
+    console.log(await response.json());
+    expect(response.ok()).toBeTruthy();
+});
+
+test('Uses the baseURL from the config file for using params', async ({ request }) => {
+    const response = await request.get('/booking',
+        {
+            params:{
+                'firstname': 'John',
+                'lastname': 'Smith'
+            }
+        }
+    );
+    console.log(await response.json());
+    expect(response.status()).toBe(200);
+});
+
+test('Uses the baseURL from the config file for id pt2', async ({ request }) => {
+    const response = await request.get('/booking/14');
+    console.log(await response.json());
+     expect(await response.json()).toMatchObject({
+         'firstname': 'John',
+         'lastname': 'Smith',
+         "totalprice": 111,
+        "depositpaid": true,
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        },
+    })
 });
