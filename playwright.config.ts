@@ -29,6 +29,7 @@ export default defineConfig({
     baseURL: 'https://restful-booker.herokuapp.com',
         extraHTTPHeaders: {
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
