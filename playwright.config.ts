@@ -30,6 +30,7 @@ export default defineConfig({
         extraHTTPHeaders: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            Authorization: 'Basic YWRtaW46cGFzc3dvcmQxMjM=' 
         },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
