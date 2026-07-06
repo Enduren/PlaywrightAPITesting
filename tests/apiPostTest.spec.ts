@@ -3,6 +3,7 @@ import { test, expect, request, APIRequestContext } from '@playwright/test';
 
 test.describe('API POST Requests', () => {
     test('Uses the baseURL from the config file', async ({ request }) => {
+        //post request to create a new booking
         const response = await request.post('/booking', {
             
             data: {
